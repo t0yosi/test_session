@@ -29,7 +29,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor =  Color(0xFF979797);
+    const borderColor =  Color(0xFF979797);
     const activeBorderColor = Color(0xFFAB28B2); // #AB28B2 in Color format
 
     return Padding(

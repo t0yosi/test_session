@@ -22,8 +22,7 @@ class AppTextStyles {
   }
 
   /// Headline - Large
-  static TextStyle headlineLarge(BuildContext context, {Color? color}) =>
-      inter(
+  static TextStyle headlineLarge(BuildContext context, {Color? color}) => inter(
         fontSize: 32,
         fontWeight: FontWeight.bold,
         color: color ?? Theme.of(context).textTheme.headlineLarge?.color,
@@ -38,48 +37,63 @@ class AppTextStyles {
       );
 
   /// Title - Large
-  static TextStyle titleLarge(BuildContext context, {Color? color}) =>
-      inter(
+  static TextStyle titleLarge(BuildContext context, {Color? color}) => inter(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: color ?? Theme.of(context).textTheme.titleLarge?.color,
       );
 
+  /// Title - Larger
+  static TextStyle titleLarger(BuildContext context, {Color? color}) => inter(
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        color: color ?? Theme.of(context).textTheme.titleLarge?.color,
+      );
+
+  /// Body - Head
+  static TextStyle bodyHead(BuildContext context, {Color? color}) => inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+        color: color ?? Theme.of(context).textTheme.bodyLarge?.color,
+      );
+
   /// Body - Large
-  static TextStyle bodyLarge(BuildContext context, {Color? color}) =>
-      inter(
+  static TextStyle bodyLarge(BuildContext context, {Color? color}) => inter(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         color: color ?? Theme.of(context).textTheme.bodyLarge?.color,
       );
 
   /// Body - Medium
-  static TextStyle bodyMedium(BuildContext context, {Color? color}) =>
-      inter(
+  static TextStyle bodyMedium(BuildContext context, {Color? color}) => inter(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: color ?? Theme.of(context).textTheme.bodyMedium?.color,
       );
 
   /// Label - Large
-  static TextStyle labelLarge(BuildContext context, {Color? color}) =>
-      inter(
+  static TextStyle labelLarge(BuildContext context, {Color? color}) => inter(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: color ?? Theme.of(context).textTheme.labelLarge?.color,
       );
 
   /// Label - Medium
-  static TextStyle labelMedium(BuildContext context, {Color? color}) =>
-      inter(
+  static TextStyle labelMedium(BuildContext context, {Color? color}) => inter(
         fontSize: 12,
         fontWeight: FontWeight.w500,
         color: color ?? Theme.of(context).textTheme.labelMedium?.color,
       );
 
+  /// Label - Small
+  static TextStyle labelSmall(BuildContext context, {Color? color}) => inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: color ?? Theme.of(context).textTheme.labelMedium?.color,
+      );
+
   /// Caption
-  static TextStyle caption(BuildContext context, {Color? color}) =>
-      inter(
+  static TextStyle caption(BuildContext context, {Color? color}) => inter(
         fontSize: 12,
         fontWeight: FontWeight.normal,
         color: color ?? Theme.of(context).textTheme.bodySmall?.color,

@@ -4,7 +4,7 @@ class AuthProvider with ChangeNotifier {
   String _email = 'Terryjackson@gmail.com';
   String _password = '';
   bool _isLoading = false;
-  bool _showPassword = false;
+  final bool _showPassword = false;
   bool _passwordValid = false;
 
   String get email => _email;
