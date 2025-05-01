@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
+import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/theme_provider.dart';
 import '../widgets/custom_text_field.dart';
 import '../utils/responsive.dart';
 import '../utils/text_styles.dart';
 import 'shop_page_screen.dart';
-import 'signup_screen.dart';
+import 'login_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,9 @@ class LoginScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    // Centered "Login" text at top
+                    // Centered "Sign Up" text at top
                     Text(
-                      'Login',
+                      'Sign Up',
                       style: AppTextStyles.bodyLarge(context).copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -51,21 +51,36 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(height: Responsive.screenHeight(context) * 0.05),
 
-                    // Left-aligned "Login" text
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Login',
-                        style: AppTextStyles.bodyMedium(context),
-                      ),
-                    ),
-                    SizedBox(height: Responsive.screenHeight(context) * 0.05),
+                    // Left-aligned "Sign Up" text
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Text(
+                    //     'Sign Up',
+                    //     style: AppTextStyles.bodyMedium(context),
+                    //   ),
+                    // ),
+                    // SizedBox(height: Responsive.screenHeight(context) * 0.05),
 
                     // Form fields
                     CustomTextField(
+                      label: 'First Name',
+                      keyboardType: TextInputType.name,
+                      initialValue: authProvider.firstName,
+                      onChanged: (value) => authProvider.setFirstName(value),
+                    ),
+                    SizedBox(height: Responsive.screenHeight(context) * 0.02),
+
+                    CustomTextField(
+                      label: 'Last Name',
+                      keyboardType: TextInputType.name,
+                      initialValue: authProvider.lastName,
+                      onChanged: (value) => authProvider.setLastName(value),
+                    ),
+                    SizedBox(height: Responsive.screenHeight(context) * 0.02),
+                    CustomTextField(
                       label: 'Email',
                       keyboardType: TextInputType.emailAddress,
-                      initialValue: 'Terryjackson@gmail.com',
+                      initialValue: authProvider.email,
                       onChanged: (value) => authProvider.setEmail(value),
                     ),
                     SizedBox(height: Responsive.screenHeight(context) * 0.02),
@@ -80,44 +95,42 @@ class LoginScreen extends StatelessWidget {
                           ? null
                           : authProvider.passwordValid,
                     ),
-
-                    // Forgot password
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          // Navigate to forgot password screen
-                        },
-                        child: Text(
-                          'Forgot Password?',
-                          style: AppTextStyles.labelLarge(context).copyWith(
-                            color: isDarkMode
-                                ? const Color(0xFFFFFFFF)
-                                : const Color(0xFF000000),
-                            fontSize:
-                                Responsive.responsiveFontSize(context) * 0.9,
-                          ),
-                        ),
-                      ),
+                    SizedBox(height: Responsive.screenHeight(context) * 0.02),
+                    CustomTextField(
+                      label: 'Confirm Password',
+                      isPasswordField: true,
+                      obscureText: authProvider.obscureConfirmPassword,
+                      onVisibilityToggle: () =>
+                          authProvider.toggleConfirmPasswordVisibility(),
+                      onChanged: (value) =>
+                          authProvider.setConfirmPassword(value),
+                      isValid: authProvider.confirmPassword.isEmpty
+                          ? null
+                          : authProvider.confirmPassword ==
+                              authProvider.password,
                     ),
                     SizedBox(height: Responsive.screenHeight(context) * 0.03),
 
-                    // Login button
+                    // Sign Up button
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: authProvider.isLoading ||
-                                !authProvider.passwordValid
+                                !authProvider.passwordValid ||
+                                authProvider.confirmPassword !=
+                                    authProvider.password
                             ? null
                             : () async {
-                                await authProvider.login();
-                                // Navigate to ShopPage after successful login
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ShopPage(),
-                                  ),
-                                );
+                                await authProvider.signup();
+                                if (context.mounted) {
+                                  // Navigate to ShopPage after successful signup
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ShopPage(),
+                                    ),
+                                  );
+                                }
                               },
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
@@ -131,7 +144,7 @@ class LoginScreen extends StatelessWidget {
                             ? const CircularProgressIndicator(
                                 color: Colors.purple)
                             : Text(
-                                'Login',
+                                'Sign Up',
                                 style:
                                     AppTextStyles.labelLarge(context).copyWith(
                                   fontSize:
@@ -149,20 +162,20 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
 
-          // "Don't own an account? Signup" text fixed at bottom
+          // "Already have an account? Login" text fixed at bottom
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: Center(
-              child: Text.rich(
-                TextSpan(
-                  text: "Don't own an account? ",
+              child: RichText(
+                text: TextSpan(
+                  text: "Already have an account? ",
                   style: AppTextStyles.labelLarge(context).copyWith(
                     color: Colors.grey,
                     fontSize: Responsive.responsiveFontSize(context) * 0.9,
                   ),
                   children: [
                     TextSpan(
-                      text: "Signup",
+                      text: "Login",
                       style: AppTextStyles.labelLarge(context).copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
@@ -176,7 +189,7 @@ class LoginScreen extends StatelessWidget {
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
                                     .clearFields();
-                                return const SignupScreen();
+                                return const LoginScreen();
                               },
                             ),
                           );
