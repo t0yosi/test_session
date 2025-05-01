@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:test_session/screens/product_page_screen.dart';
 import 'package:test_session/widgets/collapsible_categories.dart';
 import '../providers/theme_provider.dart';
 import '../utils/responsive.dart';
@@ -582,173 +583,182 @@ Widget _buildProductItem(
   final isDarkMode = themeProvider.isDarkMode;
   final textColor = isDarkMode ? Colors.white : Colors.black;
 
-  return Container(
-    constraints: BoxConstraints(
-      maxHeight: Responsive.isMobile(context) ? 400 : 600,
-      minHeight: Responsive.isMobile(context) ? 350 : 400,
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          height: 200,
-          width: double.infinity,
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  imagePath,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              // Pin icon - top right
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Transform.rotate(
-                  angle: 0.7854,
-                  child: const Icon(
-                    Icons.push_pin,
-                    color: Colors.white,
-                    size: 24,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black45,
-                        offset: Offset(1, 1),
-                        blurRadius: 2,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Like icon and count - bottom right
-              Positioned(
-                bottom: 8,
-                right: 8,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1E1E1E),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.favorite_border,
-                        color: Colors.white,
-                        size: 12,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '$likes',
-                        style: AppTextStyles.labelSmall(context).copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+  return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProductPage()),
+        );
+      },
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: Responsive.isMobile(context) ? 400 : 600,
+          minHeight: Responsive.isMobile(context) ? 350 : 400,
         ),
-        const SizedBox(height: 8),
-        Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                brand,
-                style: AppTextStyles.labelLarge(context).copyWith(
-                  color: Colors.purple,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                name,
-                style: AppTextStyles.labelLarge(context),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                condition,
-                style: AppTextStyles.labelLarge(context).copyWith(
-                  color: Colors.grey,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              if (price.isNotEmpty)
-                hasDiscount
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 200,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      imagePath,
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  // Pin icon - top right
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Transform.rotate(
+                      angle: 0.7854,
+                      child: const Icon(
+                        Icons.push_pin,
+                        color: Colors.white,
+                        size: 24,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black45,
+                            offset: Offset(1, 1),
+                            blurRadius: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // Like icon and count - bottom right
+                  Positioned(
+                    bottom: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1E1E1E),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          const Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 12,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '$likes',
+                            style: AppTextStyles.labelSmall(context).copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    brand,
+                    style: AppTextStyles.labelLarge(context).copyWith(
+                      color: Colors.purple,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    name,
+                    style: AppTextStyles.labelLarge(context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    condition,
+                    style: AppTextStyles.labelLarge(context).copyWith(
+                      color: Colors.grey,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (price.isNotEmpty)
+                    hasDiscount
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    originalPrice,
-                                    style: AppTextStyles.labelLarge(context)
-                                        .copyWith(
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        originalPrice,
+                                        style: AppTextStyles.labelLarge(context)
+                                            .copyWith(
+                                          color: Colors.grey,
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        price,
+                                        style: AppTextStyles.labelLarge(context)
+                                            .copyWith(
+                                          color: textColor,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    price,
-                                    style: AppTextStyles.labelLarge(context)
-                                        .copyWith(
-                                      color: textColor,
-                                      fontWeight: FontWeight.bold,
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 6, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      '${discountPercentage.round()}% OFF',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  '${discountPercentage.round()}% OFF',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
                             ],
+                          )
+                        : Text(
+                            price,
+                            style: AppTextStyles.labelLarge(context).copyWith(
+                              color: textColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
-                      )
-                    : Text(
-                        price,
-                        style: AppTextStyles.labelLarge(context).copyWith(
-                          color: textColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-            ],
-          ),
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      ));
 }
