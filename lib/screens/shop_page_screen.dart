@@ -118,10 +118,13 @@ class _ShopPageState extends State<ShopPage> {
       appBar: AppBar(
         title: const Text('Wardrobe'),
         centerTitle: true,
+        leading: Container(), // Hide default hamburger icon
         actions: [
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+          Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
           ),
         ],
         bottom: PreferredSize(
@@ -245,7 +248,7 @@ class _ShopPageState extends State<ShopPage> {
                                     width: 22,
                                     height: 22.95,
                                     colorFilter: ColorFilter.mode(
-                                      isDarkMode ? Colors.black : Colors.white,
+                                      isDarkMode ? Colors.white : Colors.black,
                                       BlendMode.srcIn,
                                     ),
                                   ),
@@ -269,7 +272,7 @@ class _ShopPageState extends State<ShopPage> {
                                     Responsive.responsiveFontSize(context) *
                                         0.9,
                                 color:
-                                    isDarkMode ? Colors.black : Colors.white),
+                                    isDarkMode ? Colors.white : Colors.black),
                           ),
                         ],
                       ),
@@ -577,7 +580,7 @@ Widget _buildProductItem(
       discountPercentage > 0;
   final themeProvider = Provider.of<ThemeProvider>(context);
   final isDarkMode = themeProvider.isDarkMode;
-  final textColor = isDarkMode ? Colors.black : Colors.white;
+  final textColor = isDarkMode ? Colors.white : Colors.black;
 
   return Container(
     constraints: BoxConstraints(
@@ -686,49 +689,50 @@ Widget _buildProductItem(
               ),
               if (price.isNotEmpty)
                 hasDiscount
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 4),
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                originalPrice,
-                                style:
-                                    AppTextStyles.labelLarge(context).copyWith(
-                                  color: Colors.grey,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
+                              Row(
+                                children: [
+                                  Text(
+                                    originalPrice,
+                                    style: AppTextStyles.labelLarge(context)
+                                        .copyWith(
+                                      color: Colors.grey,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    price,
+                                    style: AppTextStyles.labelLarge(context)
+                                        .copyWith(
+                                      color: textColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                price,
-                                style:
-                                    AppTextStyles.labelLarge(context).copyWith(
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  '${discountPercentage.round()}% OFF',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],
-                          ),
-                          SizedBox(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                '${discountPercentage.round()}% OFF',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
                           ),
                         ],
                       )
