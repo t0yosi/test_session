@@ -35,11 +35,11 @@ class _ProductPageState extends State<ProductPage> {
                 children: [
                   Image.asset(
                     'assets/jacket.png',
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.fill ,
                   ),
                   Image.asset(
                     'assets/product.png',
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.fitWidth,
                   ),
                 ],
               ),

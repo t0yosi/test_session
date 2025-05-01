@@ -29,24 +29,44 @@ class AppTextStyles {
     double? height,
     double? letterSpacing,
     TextDecoration? decoration,
+    FontStyle fontStyle = FontStyle.normal,
   }) {
-    return GoogleFonts.getFont(
-      'Poppins',
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      color: color,
-      height: height,
-      letterSpacing: letterSpacing,
-      decoration: decoration,
-    );
+    // First try to load from assets (if you've added custom font files)
+    try {
+      return TextStyle(
+        fontFamily: 'Avenir LT Pro',
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+        height: height,
+        letterSpacing: letterSpacing,
+        decoration: decoration,
+        fontStyle: fontStyle,
+      );
+    } catch (e) {
+      // Fallback to Poppins if Avenir not available
+      return GoogleFonts.poppins(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+        height: height,
+        letterSpacing: letterSpacing,
+        decoration: decoration,
+        fontStyle: fontStyle,
+      );
+    }
   }
+
+  // ----------------------------
+  // Headline Styles
+  // ----------------------------
 
   /// Headline - Large
   static TextStyle headlineLarge(BuildContext context, {Color? color, bool useAvenir = false}) => 
     useAvenir 
       ? avenir(
           fontSize: 32,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w800, // Avenir Heavy
           color: color ?? Theme.of(context).textTheme.headlineLarge?.color,
         )
       : inter(
@@ -60,7 +80,7 @@ class AppTextStyles {
     useAvenir
       ? avenir(
           fontSize: 24,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w800, // Avenir Heavy
           color: color ?? Theme.of(context).textTheme.headlineMedium?.color,
         )
       : inter(
@@ -69,12 +89,16 @@ class AppTextStyles {
           color: color ?? Theme.of(context).textTheme.headlineMedium?.color,
         );
 
+  // ----------------------------
+  // Title Styles
+  // ----------------------------
+
   /// Title - Large
   static TextStyle titleLarge(BuildContext context, {Color? color, bool useAvenir = false}) => 
     useAvenir
       ? avenir(
           fontSize: 20,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700, // Avenir Bold
           color: color ?? Theme.of(context).textTheme.titleLarge?.color,
         )
       : inter(
@@ -88,7 +112,7 @@ class AppTextStyles {
     useAvenir
       ? avenir(
           fontSize: 20,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w800, // Avenir Heavy
           color: color ?? Theme.of(context).textTheme.titleLarge?.color,
         )
       : inter(
@@ -97,12 +121,16 @@ class AppTextStyles {
           color: color ?? Theme.of(context).textTheme.titleLarge?.color,
         );
 
+  // ----------------------------
+  // Body Styles
+  // ----------------------------
+
   /// Body - Head
   static TextStyle bodyHead(BuildContext context, {Color? color, bool useAvenir = false}) => 
     useAvenir
       ? avenir(
           fontSize: 16,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w800, // Avenir Heavy
           color: color ?? Theme.of(context).textTheme.bodyLarge?.color,
         )
       : inter(
@@ -116,7 +144,7 @@ class AppTextStyles {
     useAvenir
       ? avenir(
           fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700, // Avenir Bold
           color: color ?? Theme.of(context).textTheme.bodyLarge?.color,
         )
       : inter(
@@ -125,13 +153,12 @@ class AppTextStyles {
           color: color ?? Theme.of(context).textTheme.bodyLarge?.color,
         );
 
-        
   /// Body - Base
   static TextStyle bodyBase(BuildContext context, {Color? color, bool useAvenir = false}) => 
     useAvenir
       ? avenir(
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w500, // Avenir Medium
           color: color ?? Theme.of(context).textTheme.bodyLarge?.color,
         )
       : inter(
@@ -145,7 +172,7 @@ class AppTextStyles {
     useAvenir
       ? avenir(
           fontSize: 14,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w600, // Avenir Demi
           color: color ?? Theme.of(context).textTheme.bodyMedium?.color,
         )
       : inter(
@@ -153,13 +180,17 @@ class AppTextStyles {
           fontWeight: FontWeight.w600,
           color: color ?? Theme.of(context).textTheme.bodyMedium?.color,
         );
+
+  // ----------------------------
+  // Label Styles
+  // ----------------------------
 
   /// Label - Large
   static TextStyle labelLarge(BuildContext context, {Color? color, bool useAvenir = false}) => 
     useAvenir
       ? avenir(
           fontSize: 14,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w500, // Avenir Medium
           color: color ?? Theme.of(context).textTheme.labelLarge?.color,
         )
       : inter(
@@ -168,13 +199,12 @@ class AppTextStyles {
           color: color ?? Theme.of(context).textTheme.labelLarge?.color,
         );
 
-    
   /// Label - Base
   static TextStyle labelBase(BuildContext context, {Color? color, bool useAvenir = false}) => 
     useAvenir
       ? avenir(
           fontSize: 14,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w400, // Avenir Book
           color: color ?? Theme.of(context).textTheme.labelLarge?.color,
         )
       : inter(
@@ -188,7 +218,7 @@ class AppTextStyles {
     useAvenir
       ? avenir(
           fontSize: 12,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w500, // Avenir Medium
           color: color ?? Theme.of(context).textTheme.labelMedium?.color,
         )
       : inter(
@@ -202,7 +232,7 @@ class AppTextStyles {
     useAvenir
       ? avenir(
           fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w400, // Avenir Book
           color: color ?? Theme.of(context).textTheme.labelMedium?.color,
         )
       : inter(
@@ -211,12 +241,16 @@ class AppTextStyles {
           color: color ?? Theme.of(context).textTheme.labelMedium?.color,
         );
 
+  // ----------------------------
+  // Caption Styles
+  // ----------------------------
+
   /// Caption
   static TextStyle caption(BuildContext context, {Color? color, bool useAvenir = false}) => 
     useAvenir
       ? avenir(
           fontSize: 12,
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.w400, // Avenir Book
           color: color ?? Theme.of(context).textTheme.bodySmall?.color,
         )
       : inter(
